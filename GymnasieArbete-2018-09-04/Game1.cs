@@ -1,0 +1,121 @@
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+
+namespace GymnasieArbete_2018_09_04
+{
+    /// <summary>
+    /// This is the main type for your game.
+    /// </summary>
+    public class Game1 : Game
+    {
+        GraphicsDeviceManager graphics;
+        SpriteBatch spriteBatch;
+        Player player;
+        Planet planet;
+        Calculator calculator;
+        Images images;
+        public Game1()
+        {
+            graphics = new GraphicsDeviceManager(this);
+            Content.RootDirectory = "Content";
+        }
+
+
+        protected override void Initialize()
+        {
+            Fullscreen();
+            images = new Images();
+            calculator = new Calculator();
+            planet = new Planet();
+            images.Initialize(Content.Load<Texture2D>("testSpaceship"), Content.Load<Texture2D>("testPlanet"));
+            CreatePlayer();
+            planet.Initialize(Content.Load<Texture2D>("testPlanet"));
+
+
+            base.Initialize();
+        }
+
+        private void CreatePlayer()
+        {
+            //skapar en instans av "player" i "game1" och dessutom så får "player" sina tangenter. 
+            //Så ifall jag vill ha två stycken spelare kan jag göra en ny "player" och ge den andra tangenter.
+            player = new Player();
+            player.Initialize(Content.Load<Texture2D>("testSpaceship"));
+            player.up = Keys.W;
+            player.down = Keys.S;
+            player.left = Keys.A;
+            player.right = Keys.D;
+        }
+
+        private void Fullscreen()
+        {
+
+            //Gör så att spelet fyller hela skärmen.
+            graphics.PreferredBackBufferWidth = GraphicsDevice.DisplayMode.Width;
+            graphics.PreferredBackBufferHeight = GraphicsDevice.DisplayMode.Height;
+
+            graphics.IsFullScreen = true;
+            graphics.ApplyChanges();
+            //--
+        }
+
+        /// <summary>
+        /// LoadContent will be called once per game and is the place to load
+        /// all of your content.
+        /// </summary>
+        protected override void LoadContent()
+        {
+            // Create a new SpriteBatch, which can be used to draw textures.
+            spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            // TODO: use this.Content to load your game content here
+        }
+
+        /// <summary>
+        /// UnloadContent will be called once per game and is the place to unload
+        /// game-specific content.
+        /// </summary>
+        protected override void UnloadContent()
+        {
+            // TODO: Unload any non ContentManager content here
+        }
+
+        /// <summary>
+        /// Allows the game to run logic such as updating the world,
+        /// checking for collisions, gathering input, and playing audio.
+        /// </summary>
+        /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        protected override void Update(GameTime gameTime)
+        {
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+                Exit();
+            //"player" klassen tar in ett float värde och det float är uträknat av "calculator.Gravity" metoden 
+            //som jag använder för att räkna ut hur "players" position ska ändras relativt med det objekt som "player" ska dras mot.
+            player.Update(gameTime, calculator.Gravity(player.position, planet.position, player.mass, planet.mass));
+            images.Update(player, planet);
+            // TODO: Add your update logic here
+
+            base.Update(gameTime);
+        }
+
+        /// <summary>
+        /// This is called when the game should draw itself.
+        /// </summary>
+        /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        protected override void Draw(GameTime gameTime)
+        {
+            GraphicsDevice.Clear(Color.Black);
+
+            spriteBatch.Begin();
+           
+            planet.Draw(spriteBatch);
+            player.Draw(spriteBatch);
+            images.Draw(spriteBatch);
+
+            spriteBatch.End();
+
+            base.Draw(gameTime);
+        }
+    }
+}

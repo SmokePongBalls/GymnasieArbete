@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SourceFileCollection xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Profile>Reach</Profile>
+  <Platform>Windows</Platform>
+  <Config />
+  <SourceFiles>
+    <File>C:/Users/hugo.fjaestad/Documents/GitHub/GymnasieArbete-2018-09-04/GymnasieArbete-2018-09-04/Content/testPlanet.png</File>
+    <File>C:/Users/hugo.fjaestad/Documents/GitHub/GymnasieArbete-2018-09-04/GymnasieArbete-2018-09-04/Content/testSpaceship.png</File>
+  </SourceFiles>
+</SourceFileCollection>
