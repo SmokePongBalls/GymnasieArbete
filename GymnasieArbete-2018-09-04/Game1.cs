@@ -27,7 +27,7 @@ namespace GymnasieArbete_2018_09_04
 
         protected override void Initialize()
         {
-            Fullscreen();
+            //Fullscreen();
             images = new Images();
             calculator = new Calculator();
             planet = new Planet();

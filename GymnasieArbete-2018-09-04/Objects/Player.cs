@@ -24,7 +24,7 @@ namespace GymnasieArbete_2018_09_04
             planet = new Planet();
             this.texture = texture;
             center = new Vector2(this.texture.Width / 2, this.texture.Height / 2);
-            radius = 20;
+            radius = 45;
             rotation = 0;
             thickness = 20;
             sides = 20;
@@ -38,7 +38,7 @@ namespace GymnasieArbete_2018_09_04
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            MonoGame.Extended.ShapeExtensions.DrawCircle(spriteBatch, position, radius, sides, color, thickness);
+            //MonoGame.Extended.ShapeExtensions.DrawCircle(spriteBatch, position, radius, sides, color, thickness);
 
             spriteBatch.Draw(texture, position, null, Color.White, rotation, center, 1f, SpriteEffects.None, 1f);
 

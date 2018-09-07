@@ -86,7 +86,8 @@ C:\Users\hugo.fjaestad\Documents\GitHub\GymnasieArbete\GymnasieArbete-2018-09-04
 C:\Users\hugo.fjaestad\Documents\GitHub\GymnasieArbete\GymnasieArbete-2018-09-04\bin\Windows\x86\Debug\SharpDX.Direct2D1.xml
 C:\Users\hugo.fjaestad\Documents\GitHub\GymnasieArbete\GymnasieArbete-2018-09-04\bin\Windows\x86\Debug\SharpDX.XInput.xml
 C:\Users\hugo.fjaestad\Documents\GitHub\GymnasieArbete\GymnasieArbete-2018-09-04\bin\Windows\x86\Debug\SharpDX.Direct3D9.xml
-C:\Users\hugo.fjaestad\Documents\GitHub\GymnasieArbete\GymnasieArbete-2018-09-04\obj\x86\Debug\GymnasieArbete-2018-09-04.csprojResolveAssemblyReference.cache
 C:\Users\hugo.fjaestad\Documents\GitHub\GymnasieArbete\GymnasieArbete-2018-09-04\obj\x86\Debug\GymnasieArbete-2018-09-04.csproj.CoreCompileInputs.cache
 C:\Users\hugo.fjaestad\Documents\GitHub\GymnasieArbete\GymnasieArbete-2018-09-04\obj\x86\Debug\GymnasieArbete-2018-09-04.exe
 C:\Users\hugo.fjaestad\Documents\GitHub\GymnasieArbete\GymnasieArbete-2018-09-04\obj\x86\Debug\GymnasieArbete-2018-09-04.pdb
+C:\Users\hugo.fjaestad\Documents\GitHub\GymnasieArbete\GymnasieArbete-2018-09-04\obj\x86\Debug\GymnasieArbete-2018-09-04.csprojAssemblyReference.cache
+C:\Users\hugo.fjaestad\Documents\GitHub\GymnasieArbete\GymnasieArbete-2018-09-04\obj\x86\Debug\GymnasieArbete-2018-09-04.csproj.CopyComplete

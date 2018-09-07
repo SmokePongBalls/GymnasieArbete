@@ -33,7 +33,7 @@ namespace GymnasieArbete_2018_09_04
         public void Draw(SpriteBatch spriteBatch)
         {
 
-            spriteBatch.Draw(planetTexture, new Vector2(planetPosition.X - planetTexture.Width, planetPosition.Y - planetTexture.Height), Color.White);
+            spriteBatch.Draw(planetTexture,planetPosition, Color.White);
             //spriteBatch.Draw(playerTexture, new Vector2 (playerPosition.X - playerTexture.Width, playerPosition.Y - playerTexture.Height), Color.White);
 
         }
