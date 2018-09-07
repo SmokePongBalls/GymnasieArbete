@@ -15,6 +15,9 @@ namespace GymnasieArbete_2018_09_04
         Planet planet;
         Calculator calculator;
         Images images;
+        Color backgroundColor;
+        circle.Circle hitbox, hitbox2;
+        
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -28,9 +31,19 @@ namespace GymnasieArbete_2018_09_04
             images = new Images();
             calculator = new Calculator();
             planet = new Planet();
+            hitbox = new circle.Circle();
+
+            //bör nog tas bort;
             images.Initialize(Content.Load<Texture2D>("testSpaceship"), Content.Load<Texture2D>("testPlanet"));
+
             CreatePlayer();
+
             planet.Initialize(Content.Load<Texture2D>("testPlanet"));
+
+            backgroundColor = Color.Black;
+
+            hitbox.HoleInfo(player.position.X, player.position.Y, player.radius * 2);
+            hitbox.HoleInfo(planet.position.X, planet.position.Y, planet.radius * 2);
 
 
             base.Initialize();
@@ -47,14 +60,14 @@ namespace GymnasieArbete_2018_09_04
             player.left = Keys.A;
             player.right = Keys.D;
         }
-
+        
         private void Fullscreen()
         {
 
             //Gör så att spelet fyller hela skärmen.
             graphics.PreferredBackBufferWidth = GraphicsDevice.DisplayMode.Width;
             graphics.PreferredBackBufferHeight = GraphicsDevice.DisplayMode.Height;
-
+            
             graphics.IsFullScreen = true;
             graphics.ApplyChanges();
             //--
@@ -90,6 +103,9 @@ namespace GymnasieArbete_2018_09_04
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
+            
+
             //"player" klassen tar in ett float värde och det float är uträknat av "calculator.Gravity" metoden 
             //som jag använder för att räkna ut hur "players" position ska ändras relativt med det objekt som "player" ska dras mot.
             player.Update(gameTime, calculator.Gravity(player.position, planet.position, player.mass, planet.mass));
@@ -105,13 +121,13 @@ namespace GymnasieArbete_2018_09_04
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Black);
+            GraphicsDevice.Clear(backgroundColor);
 
             spriteBatch.Begin();
            
-            planet.Draw(spriteBatch);
-            player.Draw(spriteBatch);
+            planet.Draw(spriteBatch);          
             images.Draw(spriteBatch);
+            player.Draw(spriteBatch);
 
             spriteBatch.End();
 

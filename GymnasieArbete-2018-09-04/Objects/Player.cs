@@ -16,7 +16,7 @@ namespace GymnasieArbete_2018_09_04
         KeyboardState pressedKeys;
         Planet planet;
         Texture2D texture;
-        
+
 
         public override void Initialize(Texture2D texture)
         {
@@ -29,14 +29,16 @@ namespace GymnasieArbete_2018_09_04
             thickness = 20;
             sides = 20;
             mass = 5;
-            color = Color.Black;
+            color = Color.Red;
             acceleration = 0.5;
             base.Initialize(texture);
         }
 
+
+
         public override void Draw(SpriteBatch spriteBatch)
         {
-            //MonoGame.Extended.ShapeExtensions.DrawCircle(spritebatch, position, radius, sides, color, thickness);
+            MonoGame.Extended.ShapeExtensions.DrawCircle(spriteBatch, position, radius, sides, color, thickness);
 
             spriteBatch.Draw(texture, position, null, Color.White, rotation, center, 1f, SpriteEffects.None, 1f);
 
