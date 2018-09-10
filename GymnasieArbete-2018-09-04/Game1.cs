@@ -106,9 +106,9 @@ namespace GymnasieArbete_2018_09_04
 
             
 
-            //"player" klassen tar in ett float värde och det float är uträknat av "calculator.Gravity" metoden 
-            //som jag använder för att räkna ut hur "players" position ska ändras relativt med det objekt som "player" ska dras mot.
-            player.Update(gameTime, calculator.Gravity(player.position, planet.position, player.mass, planet.mass, 5f));
+            //"player" klassen tar in ett float värde och det float är uträknat av "calculator.Gravity" metoden -->
+            //--> som jag använder för att räkna ut hur "players" position ska ändras relativt med det objekt som "player" ska dras mot.
+            player.Update(gameTime, calculator.Gravity(player.position, planet.position, player.mass, planet.mass, 0.05f));
             images.Update(player, planet);
             // TODO: Add your update logic here
 
@@ -128,7 +128,7 @@ namespace GymnasieArbete_2018_09_04
             planet.Draw(spriteBatch);          
             images.Draw(spriteBatch);
             player.Draw(spriteBatch);
-            spriteBatch.DrawString(font, Convert.ToString(player.velocity), player.position, Color.White);
+            spriteBatch.DrawString(font, Convert.ToString(calculator.gravity), player.position, Color.White);
 
             spriteBatch.End();
 

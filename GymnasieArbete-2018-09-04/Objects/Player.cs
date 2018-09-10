@@ -15,7 +15,7 @@ namespace GymnasieArbete_2018_09_04
         public Keys up, down, left, right;
         KeyboardState pressedKeys;
         Planet planet;
-        const float forwardTangentialVelocity = 0.2f;
+        const float forwardTangentialAcceleration = 0.2f;
         
 
 
@@ -58,8 +58,8 @@ namespace GymnasieArbete_2018_09_04
             
             position += velocity;
 
-            position.X += gravity.X;
-            position.Y += gravity.Y;
+            velocity.X += gravity.X;
+            velocity.Y += gravity.Y;
         }
 
         
@@ -90,12 +90,14 @@ namespace GymnasieArbete_2018_09_04
 
         private void KeyActions(GameTime gameTime)
         {
+            //velocity = Vector2.Zero;
+
             if (pressedKeys.IsKeyDown(up))
             {
 
-                velocity.X += (float)Math.Cos(rotation) * forwardTangentialVelocity;
+                velocity.X += (float)Math.Cos(rotation) * forwardTangentialAcceleration;
                 
-                velocity.Y += (float)Math.Sin(rotation) * forwardTangentialVelocity;
+                velocity.Y += (float)Math.Sin(rotation) * forwardTangentialAcceleration;
             }
 
             if (pressedKeys.IsKeyDown(left))
@@ -106,8 +108,8 @@ namespace GymnasieArbete_2018_09_04
             //har kvar denna ifall jag vill använda den
             if (pressedKeys.IsKeyDown(down))
             {
-                
 
+                rotation = 0;
 
             }
 

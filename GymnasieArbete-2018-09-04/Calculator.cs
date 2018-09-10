@@ -9,7 +9,7 @@ namespace GymnasieArbete_2018_09_04
 {
     class Calculator
     {
-        Vector2 gravity;
+        public Vector2 gravity;
         double distance;
         float sideX, sideY, acceleration;
         double angle;
