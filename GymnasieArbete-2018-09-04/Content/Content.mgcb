@@ -25,6 +25,13 @@
 /processorParam:TextureFormat=Color
 /build:testPlanet.png
 
+#begin Font.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Font.spritefont
+
 #begin testSpaceship.png
 /importer:TextureImporter
 /processor:TextureProcessor

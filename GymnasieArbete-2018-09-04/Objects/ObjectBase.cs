@@ -11,7 +11,7 @@ namespace GymnasieArbete_2018_09_04
     class ObjectBase
     {
         public Vector2 position, center;
-        Texture2D texture;
+        public Texture2D texture;
         public float radius, thickness, rotation;
         public int sides, mass;
         public double acceleration;

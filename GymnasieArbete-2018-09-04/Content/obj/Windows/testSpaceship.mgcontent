@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SourceFile>C:/Users/hugo.fjaestad/Documents/GitHub/GymnasieArbete/GymnasieArbete-2018-09-04/Content/testSpaceship.png</SourceFile>
-  <SourceTime>2018-09-06T11:52:39.1615184+02:00</SourceTime>
+  <SourceTime>2018-09-07T15:48:15.9099076+02:00</SourceTime>
   <DestFile>C:/Users/hugo.fjaestad/Documents/GitHub/GymnasieArbete/GymnasieArbete-2018-09-04/Content/bin/Windows/testSpaceship.xnb</DestFile>
-  <DestTime>2018-09-07T09:25:48.41338+02:00</DestTime>
+  <DestTime>2018-09-07T15:49:17.5949099+02:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2017-03-01T16:05:36+01:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

@@ -14,7 +14,7 @@ namespace GymnasieArbete_2018_09_04
         public override void Initialize(Texture2D texture)
         {
             position = new Vector2(1920 / 2, 1080 / 2);
-            radius = 200;
+            radius = 150;
             thickness = 100;
             sides = 100;
             mass = 1000000;
@@ -26,9 +26,8 @@ namespace GymnasieArbete_2018_09_04
         public override void Draw(SpriteBatch spriteBatch)
         {
 
-           MonoGame.Extended.ShapeExtensions.DrawCircle(spriteBatch, position, radius, sides, color, thickness);
-
-
+           //För att enkelt se den cirkulära "hitboxen"
+           //MonoGame.Extended.ShapeExtensions.DrawCircle(spriteBatch, position, radius, sides, color, thickness);
 
             base.Draw(spriteBatch);
         }

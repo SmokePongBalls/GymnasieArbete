@@ -24,9 +24,8 @@ namespace GymnasieArbete_2018_09_04
 
         public void Update(Player player, Planet planet)
         {
-
-            playerPosition = player.position;
-            planetPosition = planet.position;
+            planetPosition = new Vector2(planet.position.X - planetTexture.Width / 2, planet.position.Y - planetTexture.Height / 2);
+            playerPosition = player.position;            
 
         }
 

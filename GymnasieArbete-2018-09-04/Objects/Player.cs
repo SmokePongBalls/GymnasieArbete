@@ -15,12 +15,13 @@ namespace GymnasieArbete_2018_09_04
         public Keys up, down, left, right;
         KeyboardState pressedKeys;
         Planet planet;
-        Texture2D texture;
+        const float forwardTangentialVelocity = 0.2f;
+        
 
 
         public override void Initialize(Texture2D texture)
         {
-            position = new Vector2(20, 20);
+            position = new Vector2(100, 100);
             planet = new Planet();
             this.texture = texture;
             center = new Vector2(this.texture.Width / 2, this.texture.Height / 2);
@@ -38,6 +39,8 @@ namespace GymnasieArbete_2018_09_04
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+
+            //För att enkelt se den cirkulära "hitboxen"
             //MonoGame.Extended.ShapeExtensions.DrawCircle(spriteBatch, position, radius, sides, color, thickness);
 
             spriteBatch.Draw(texture, position, null, Color.White, rotation, center, 1f, SpriteEffects.None, 1f);
@@ -46,14 +49,21 @@ namespace GymnasieArbete_2018_09_04
         }
 
 
-        public override void Update(GameTime gameTime, Vector2 gravityTemp)
+        public override void Update(GameTime gameTime, Vector2 gravity)
         {
             pressedKeys = Keyboard.GetState();
             KeyActions(gameTime);
             Boundaries();
+
+            
             position += velocity;
-            //position += gravityTemp;
+
+            position.X += gravity.X;
+            position.Y += gravity.Y;
         }
+
+        
+        
 
         private void Boundaries()
         {
@@ -82,24 +92,29 @@ namespace GymnasieArbete_2018_09_04
         {
             if (pressedKeys.IsKeyDown(up))
             {
-                velocity.Y -= (float)acceleration;
+
+                velocity.X += (float)Math.Cos(rotation) * forwardTangentialVelocity;
+                
+                velocity.Y += (float)Math.Sin(rotation) * forwardTangentialVelocity;
             }
 
             if (pressedKeys.IsKeyDown(left))
             {
                 rotation -= (float)0.1;
-                velocity.X -= (float)acceleration;
+               
             }
-
+            //har kvar denna ifall jag vill använda den
             if (pressedKeys.IsKeyDown(down))
             {
-                velocity.Y += (float)acceleration;
+                
+
+
             }
 
             if (pressedKeys.IsKeyDown(right))
             {
                 rotation += (float)0.1;
-                velocity.X += (float)acceleration;
+                
 
             }
         }

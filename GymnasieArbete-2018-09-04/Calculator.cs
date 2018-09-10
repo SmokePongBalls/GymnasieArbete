@@ -9,37 +9,29 @@ namespace GymnasieArbete_2018_09_04
 {
     class Calculator
     {
-        Vector2 gravityTemp;
-
-        public Vector2 Gravity(Vector2 position1, Vector2 position2, int mass1, int mass2)
+        Vector2 gravity;
+        double distance;
+        float sideX, sideY, acceleration;
+        double angle;
+        
+        public Vector2 Gravity(Vector2 position1, Vector2 position2, int mass1, int mass2, float acceleration)
         {
-            /*
-            if (position1.X < position2.X)
-            {
-                gravityTemp.X = 5;
-                return gravityTemp;
-            }
+            gravity = Vector2.Zero;
+            this.acceleration = acceleration;
 
-            if (position2.X < position1.X)
-            {
-                gravityTemp.X = -5;
-                return gravityTemp;
-            }
+            sideX = position1.X - position2.X;
+            sideY = position1.Y - position2.Y;
 
-            if (position1.Y < position2.Y)
-            {
-                gravityTemp.X = 5;
-                return gravityTemp;
-            }
+            angle = Math.Atan2(position2.Y - position1.Y, position2.X - position1.X);
 
-            if (position2.Y < position1.Y)
-            {
-                gravityTemp.Y = -5;
-                return gravityTemp;
-            }
-            */
-            gravityTemp = Vector2.Zero;
-            return gravityTemp;
+           
+            distance = Math.Sqrt(Math.Pow(sideX, 2) + Math.Pow(sideY, 2));
+            
+            //Enhetscirkel
+            gravity.X += (float)Math.Cos(angle) * this.acceleration;
+            gravity.Y += (float)Math.Sin(angle) * this.acceleration;
+
+            return gravity;
         }
     }
 }

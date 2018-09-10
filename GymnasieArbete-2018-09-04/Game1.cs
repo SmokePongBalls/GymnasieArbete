@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace GymnasieArbete_2018_09_04
 {
@@ -17,7 +18,8 @@ namespace GymnasieArbete_2018_09_04
         Images images;
         Color backgroundColor;
         circle.Circle hitbox, hitbox2;
-        
+        SpriteFont font;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -27,12 +29,13 @@ namespace GymnasieArbete_2018_09_04
 
         protected override void Initialize()
         {
-            //Fullscreen();
+            Fullscreen();
             images = new Images();
             calculator = new Calculator();
             planet = new Planet();
             hitbox = new circle.Circle();
-
+            hitbox2 = new circle.Circle();
+            font = Content.Load<SpriteFont>("Font");
             //bör nog tas bort;
             images.Initialize(Content.Load<Texture2D>("testSpaceship"), Content.Load<Texture2D>("testPlanet"));
 
@@ -41,10 +44,7 @@ namespace GymnasieArbete_2018_09_04
             planet.Initialize(Content.Load<Texture2D>("testPlanet"));
 
             backgroundColor = Color.Black;
-
-            hitbox.HoleInfo(player.position.X, player.position.Y, player.radius * 2);
-            hitbox.HoleInfo(planet.position.X, planet.position.Y, planet.radius * 2);
-
+         
 
             base.Initialize();
         }
@@ -108,7 +108,7 @@ namespace GymnasieArbete_2018_09_04
 
             //"player" klassen tar in ett float värde och det float är uträknat av "calculator.Gravity" metoden 
             //som jag använder för att räkna ut hur "players" position ska ändras relativt med det objekt som "player" ska dras mot.
-            player.Update(gameTime, calculator.Gravity(player.position, planet.position, player.mass, planet.mass));
+            player.Update(gameTime, calculator.Gravity(player.position, planet.position, player.mass, planet.mass, 5f));
             images.Update(player, planet);
             // TODO: Add your update logic here
 
@@ -124,10 +124,11 @@ namespace GymnasieArbete_2018_09_04
             GraphicsDevice.Clear(backgroundColor);
 
             spriteBatch.Begin();
-           
+
             planet.Draw(spriteBatch);          
             images.Draw(spriteBatch);
             player.Draw(spriteBatch);
+            spriteBatch.DrawString(font, Convert.ToString(player.velocity), player.position, Color.White);
 
             spriteBatch.End();
 
