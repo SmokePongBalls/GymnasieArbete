@@ -14,15 +14,13 @@ namespace GymnasieArbete_2018_09_04
         public Vector2 velocity;
         public Keys up, down, left, right;
         KeyboardState pressedKeys;
-        Planet planet;
-        const float forwardTangentialAcceleration = 0.2f;
+        const float forwardTangentialAcceleration = 0.1f;
         
 
 
-        public override void Initialize(Texture2D texture)
+        public override void Initialize(Texture2D texture, Vector2 position)
         {
-            position = new Vector2(100, 100);
-            planet = new Planet();
+            this.position = position;
             this.texture = texture;
             center = new Vector2(this.texture.Width / 2, this.texture.Height / 2);
             radius = 45;
@@ -32,7 +30,7 @@ namespace GymnasieArbete_2018_09_04
             mass = 5;
             color = Color.Red;
             acceleration = 0.5;
-            base.Initialize(texture);
+            base.Initialize(texture, position);
         }
 
 
@@ -107,10 +105,7 @@ namespace GymnasieArbete_2018_09_04
             }
             //har kvar denna ifall jag vill använda den
             if (pressedKeys.IsKeyDown(down))
-            {
-
-                rotation = 0;
-
+            {                
             }
 
             if (pressedKeys.IsKeyDown(right))

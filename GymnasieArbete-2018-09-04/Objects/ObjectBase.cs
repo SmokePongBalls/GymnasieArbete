@@ -17,7 +17,7 @@ namespace GymnasieArbete_2018_09_04
         public double acceleration;
         public Color color;
 
-        public virtual void Initialize(Texture2D texture)
+        public virtual void Initialize(Texture2D texture, Vector2 position)
         {
 
         }

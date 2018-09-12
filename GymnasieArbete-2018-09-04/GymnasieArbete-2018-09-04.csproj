@@ -44,7 +44,6 @@
     <Compile Include="Calculator.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Hitbox.cs" />
-    <Compile Include="Objects\Images.cs" />
     <Compile Include="Objects\ObjectBase.cs" />
     <Compile Include="Objects\Planet.cs" />
     <Compile Include="Objects\Player.cs" />

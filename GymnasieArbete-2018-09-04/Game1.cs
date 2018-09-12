@@ -12,12 +12,11 @@ namespace GymnasieArbete_2018_09_04
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Player player;
+        Player player, player2;
         Planet planet;
         Calculator calculator;
-        Images images;
         Color backgroundColor;
-        circle.Circle hitbox, hitbox2;
+        circle.Circle playerHitbox, planetHitbox, player2Hitbox;
         SpriteFont font;
 
         public Game1()
@@ -30,23 +29,31 @@ namespace GymnasieArbete_2018_09_04
         protected override void Initialize()
         {
             Fullscreen();
-            images = new Images();
             calculator = new Calculator();
             planet = new Planet();
-            hitbox = new circle.Circle();
-            hitbox2 = new circle.Circle();
+            playerHitbox = new circle.Circle();
+            player2Hitbox = new circle.Circle();
+            planetHitbox = new circle.Circle();
             font = Content.Load<SpriteFont>("Font");
             //bör nog tas bort;
-            images.Initialize(Content.Load<Texture2D>("testSpaceship"), Content.Load<Texture2D>("testPlanet"));
 
             CreatePlayer();
+            CreatePlayer2();
+            
 
-            planet.Initialize(Content.Load<Texture2D>("testPlanet"));
+            planet.Initialize(Content.Load<Texture2D>("testPlanet"), new Vector2(1920 / 2, 1080 / 2));
 
             backgroundColor = Color.Black;
-         
+
 
             base.Initialize();
+        }
+
+        private void HitboxUpdate()
+        {
+            playerHitbox.HoleInfo(player.position.X, player.position.Y, player.radius * 2);
+            player2Hitbox.HoleInfo(player2.position.X, player2.position.Y, player2.radius * 2);
+            planetHitbox.HoleInfo(planet.center.X, planet.center.Y, planet.radius * 2);
         }
 
         private void CreatePlayer()
@@ -54,13 +61,25 @@ namespace GymnasieArbete_2018_09_04
             //skapar en instans av "player" i "game1" och dessutom så får "player" sina tangenter. 
             //Så ifall jag vill ha två stycken spelare kan jag göra en ny "player" och ge den andra tangenter.
             player = new Player();
-            player.Initialize(Content.Load<Texture2D>("testSpaceship"));
+            player.Initialize(Content.Load<Texture2D>("testSpaceship"), new Vector2(100, 100));
             player.up = Keys.W;
             player.down = Keys.S;
             player.left = Keys.A;
             player.right = Keys.D;
         }
-        
+
+        private void CreatePlayer2()
+        {
+            //skapar en instans av "player" i "game1" och dessutom så får "player" sina tangenter. 
+            //Så ifall jag vill ha två stycken spelare kan jag göra en ny "player" och ge den andra tangenter.
+            player2 = new Player();
+            player2.Initialize(Content.Load<Texture2D>("testSpaceship"), new Vector2(1820, 100));
+            player2.up = Keys.Up;
+            player2.down = Keys.Down;
+            player2.left = Keys.Left;
+            player2.right = Keys.Right;
+        }
+
         private void Fullscreen()
         {
 
@@ -103,16 +122,34 @@ namespace GymnasieArbete_2018_09_04
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+            HitboxUpdate();
 
-            
+            Hitbox();
+
 
             //"player" klassen tar in ett float värde och det float är uträknat av "calculator.Gravity" metoden -->
             //--> som jag använder för att räkna ut hur "players" position ska ändras relativt med det objekt som "player" ska dras mot.
-            player.Update(gameTime, calculator.Gravity(player.position, planet.position, player.mass, planet.mass, 0.05f));
-            images.Update(player, planet);
+            player.Update(gameTime, calculator.Gravity(player.position, planet.center, player.mass, planet.mass, 0.02f));
+            player2.Update(gameTime, calculator.Gravity(player2.position, planet.center, player2.mass, planet.mass, 0.02f));
             // TODO: Add your update logic here
 
             base.Update(gameTime);
+        }
+
+        private void Hitbox()
+        {
+            if (playerHitbox.Intersects(planetHitbox))
+            {
+                backgroundColor = Color.Red;
+            }
+            else if(player2Hitbox.Intersects(planetHitbox))
+            {
+                backgroundColor = Color.Blue;
+            }
+            else
+            {
+                backgroundColor = Color.Black;
+            }
         }
 
         /// <summary>
@@ -126,9 +163,12 @@ namespace GymnasieArbete_2018_09_04
             spriteBatch.Begin();
 
             planet.Draw(spriteBatch);          
-            images.Draw(spriteBatch);
+            
             player.Draw(spriteBatch);
-            spriteBatch.DrawString(font, Convert.ToString(calculator.gravity), player.position, Color.White);
+            player2.Draw(spriteBatch);
+
+            spriteBatch.DrawString(font, Convert.ToString("Player1"), player.position, Color.White);
+            spriteBatch.DrawString(font, Convert.ToString("Player2"), player2.position, Color.White);
 
             spriteBatch.End();
 
