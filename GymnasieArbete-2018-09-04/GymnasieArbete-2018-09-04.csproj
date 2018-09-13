@@ -47,6 +47,7 @@
     <Compile Include="Objects\ObjectBase.cs" />
     <Compile Include="Objects\Planet.cs" />
     <Compile Include="Objects\Player.cs" />
+    <Compile Include="Objects\Shots.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

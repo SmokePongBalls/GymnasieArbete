@@ -14,10 +14,12 @@ namespace GymnasieArbete_2018_09_04
         SpriteBatch spriteBatch;
         Player player, player2;
         Planet planet;
+        Shots shots;
         Calculator calculator;
         Color backgroundColor;
         circle.Circle playerHitbox, planetHitbox, player2Hitbox;
         SpriteFont font;
+        Texture2D planetTexture, playerTexture, shotsTexture;
 
         public Game1()
         {
@@ -31,6 +33,7 @@ namespace GymnasieArbete_2018_09_04
             Fullscreen();
             calculator = new Calculator();
             planet = new Planet();
+            shots = new Shots();
             playerHitbox = new circle.Circle();
             player2Hitbox = new circle.Circle();
             planetHitbox = new circle.Circle();
@@ -41,7 +44,7 @@ namespace GymnasieArbete_2018_09_04
             CreatePlayer2();
             
 
-            planet.Initialize(Content.Load<Texture2D>("testPlanet"), new Vector2(1920 / 2, 1080 / 2));
+            planet.Initialize(planetTexture, new Vector2(1920 / 2, 1080 / 2));
 
             backgroundColor = Color.Black;
 
@@ -61,11 +64,12 @@ namespace GymnasieArbete_2018_09_04
             //skapar en instans av "player" i "game1" och dessutom så får "player" sina tangenter. 
             //Så ifall jag vill ha två stycken spelare kan jag göra en ny "player" och ge den andra tangenter.
             player = new Player();
-            player.Initialize(Content.Load<Texture2D>("testSpaceship"), new Vector2(100, 100));
+            player.Initialize(playerTexture, new Vector2(100, 100));
             player.up = Keys.W;
             player.down = Keys.S;
             player.left = Keys.A;
             player.right = Keys.D;
+            player.shot = Keys.T;
         }
 
         private void CreatePlayer2()
@@ -78,6 +82,7 @@ namespace GymnasieArbete_2018_09_04
             player2.down = Keys.Down;
             player2.left = Keys.Left;
             player2.right = Keys.Right;
+            player2.shot = Keys.D0;
         }
 
         private void Fullscreen()
@@ -100,7 +105,9 @@ namespace GymnasieArbete_2018_09_04
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            playerTexture = Content.Load<Texture2D>("testSpaceship");
+            planetTexture = Content.Load<Texture2D>("testPlanet");
+            shotsTexture = Content.Load<Texture2D>("bullet");
             // TODO: use this.Content to load your game content here
         }
 
@@ -122,6 +129,7 @@ namespace GymnasieArbete_2018_09_04
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
             HitboxUpdate();
 
             Hitbox();

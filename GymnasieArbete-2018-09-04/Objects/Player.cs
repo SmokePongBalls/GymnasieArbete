@@ -12,11 +12,10 @@ namespace GymnasieArbete_2018_09_04
     class Player : ObjectBase
     {
         public Vector2 velocity;
-        public Keys up, down, left, right;
+        public Keys up, down, left, right, shot;
         KeyboardState pressedKeys;
-        const float forwardTangentialAcceleration = 0.1f;
-        
-
+        List<Shots> shots = new List<Shots>();
+        double countdown = 0;
 
         public override void Initialize(Texture2D texture, Vector2 position)
         {
@@ -29,7 +28,7 @@ namespace GymnasieArbete_2018_09_04
             sides = 20;
             mass = 5;
             color = Color.Red;
-            acceleration = 0.5;
+            acceleration = 0.1;
             base.Initialize(texture, position);
         }
 
@@ -93,9 +92,9 @@ namespace GymnasieArbete_2018_09_04
             if (pressedKeys.IsKeyDown(up))
             {
 
-                velocity.X += (float)Math.Cos(rotation) * forwardTangentialAcceleration;
+                velocity.X += (float)Math.Cos(rotation) * (float)acceleration;
                 
-                velocity.Y += (float)Math.Sin(rotation) * forwardTangentialAcceleration;
+                velocity.Y += (float)Math.Sin(rotation) * (float)acceleration;
             }
 
             if (pressedKeys.IsKeyDown(left))
@@ -112,6 +111,19 @@ namespace GymnasieArbete_2018_09_04
             {
                 rotation += (float)0.1;
                 
+
+            }
+
+            if(pressedKeys.IsKeyDown(shot))
+            {
+                countdown -= gameTime.ElapsedGameTime.TotalMilliseconds;
+
+                if (countdown <= 0)
+                {
+                    
+                    countdown = 2000;
+                }
+
 
             }
         }
