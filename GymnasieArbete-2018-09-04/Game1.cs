@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.Collections.Generic;
 
 namespace GymnasieArbete_2018_09_04
 {
@@ -14,12 +15,14 @@ namespace GymnasieArbete_2018_09_04
         SpriteBatch spriteBatch;
         Player player, player2;
         Planet planet;
-        Shots shots;
+        List<Shot> shots;
+        List<circle.Circle> bulletHitbox;
         Calculator calculator;
         Color backgroundColor;
         circle.Circle playerHitbox, planetHitbox, player2Hitbox;
         SpriteFont font;
         Texture2D planetTexture, playerTexture, shotsTexture;
+        double countdown, countdown2;
 
         public Game1()
         {
@@ -33,11 +36,21 @@ namespace GymnasieArbete_2018_09_04
             Fullscreen();
             calculator = new Calculator();
             planet = new Planet();
-            shots = new Shots();
+            shots = new List<Shot>();
+
             playerHitbox = new circle.Circle();
             player2Hitbox = new circle.Circle();
             planetHitbox = new circle.Circle();
+            bulletHitbox = new List<circle.Circle>();
+
             font = Content.Load<SpriteFont>("Font");
+
+            countdown = 0;
+            countdown2 = 0;
+
+            playerTexture = Content.Load<Texture2D>("testSpaceship");
+            planetTexture = Content.Load<Texture2D>("testPlanet");
+            shotsTexture = Content.Load<Texture2D>("bullet");
             //bör nog tas bort;
 
             CreatePlayer();
@@ -57,6 +70,7 @@ namespace GymnasieArbete_2018_09_04
             playerHitbox.HoleInfo(player.position.X, player.position.Y, player.radius * 2);
             player2Hitbox.HoleInfo(player2.position.X, player2.position.Y, player2.radius * 2);
             planetHitbox.HoleInfo(planet.center.X, planet.center.Y, planet.radius * 2);
+            
         }
 
         private void CreatePlayer()
@@ -82,7 +96,7 @@ namespace GymnasieArbete_2018_09_04
             player2.down = Keys.Down;
             player2.left = Keys.Left;
             player2.right = Keys.Right;
-            player2.shot = Keys.D0;
+            player2.shot = Keys.Enter;
         }
 
         private void Fullscreen()
@@ -105,9 +119,7 @@ namespace GymnasieArbete_2018_09_04
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            playerTexture = Content.Load<Texture2D>("testSpaceship");
-            planetTexture = Content.Load<Texture2D>("testPlanet");
-            shotsTexture = Content.Load<Texture2D>("bullet");
+            
             // TODO: use this.Content to load your game content here
         }
 
@@ -134,10 +146,68 @@ namespace GymnasieArbete_2018_09_04
 
             Hitbox();
 
+            if (player.pressedKeys.IsKeyDown(player.shot))
+            {
+                countdown -= gameTime.ElapsedGameTime.TotalMilliseconds;
 
-            //"player" klassen tar in ett float värde och det float är uträknat av "calculator.Gravity" metoden -->
-            //--> som jag använder för att räkna ut hur "players" position ska ändras relativt med det objekt som "player" ska dras mot.
-            player.Update(gameTime, calculator.Gravity(player.position, planet.center, player.mass, planet.mass, 0.02f));
+                if (countdown <= 0)
+                {
+                    shots.Add(new Shot(player.position, shotsTexture, player.rotation));
+                    bulletHitbox.Add(new circle.Circle());
+                    countdown = 500;
+                }
+
+
+            }
+            
+            if (player2.pressedKeys.IsKeyDown(player2.shot))
+            {
+                countdown2 -= gameTime.ElapsedGameTime.TotalMilliseconds;
+
+                if (countdown2 <= 0)
+                {
+                    //lägger till fler "skott" i shots listan så att jag kan skapa pararella shots och påverka deras värden enskilt.
+                    shots.Add(new Shot(player2.position, shotsTexture, player2.rotation));
+                    bulletHitbox.Add(new circle.Circle());
+                    countdown2 = 500;
+                }
+
+
+            }
+            
+                
+            foreach (Shot shot in shots.ToArray())
+            {
+                //uppdaterar varje shot enskilt.
+                shot.Update(gameTime, calculator.Gravity(shot.position, planet.center, shot.mass, planet.mass, 0.02f));
+
+                //skapar en hitbox för varje shot.
+                foreach (circle.Circle bullethitbox in bulletHitbox.ToArray())
+                {
+                    bullethitbox.HoleInfo(shot.center.X, shot.center.Y, shot.radius * 2);
+
+                    if(bullethitbox.Intersects(playerHitbox))
+                    {
+
+                        player.color = Color.Red;
+
+                    }
+
+                    if(bullethitbox.Intersects(player2Hitbox))
+                    {
+
+                        player2.color = Color.Red;
+
+                    }
+                }
+
+
+            }
+
+            
+                //"player" klassen tar in ett float värde och det float är uträknat av "calculator.Gravity" metoden -->
+                //--> som jag använder för att räkna ut hur "players" position ska ändras relativt med det objekt som "player" ska dras mot.
+                player.Update(gameTime, calculator.Gravity(player.position, planet.center, player.mass, planet.mass, 0.02f));
             player2.Update(gameTime, calculator.Gravity(player2.position, planet.center, player2.mass, planet.mass, 0.02f));
             // TODO: Add your update logic here
 
@@ -148,16 +218,13 @@ namespace GymnasieArbete_2018_09_04
         {
             if (playerHitbox.Intersects(planetHitbox))
             {
-                backgroundColor = Color.Red;
+                player.color = Color.Blue;
             }
-            else if(player2Hitbox.Intersects(planetHitbox))
+            if (player2Hitbox.Intersects(planetHitbox))
             {
-                backgroundColor = Color.Blue;
+                player2.color = Color.Blue;
             }
-            else
-            {
-                backgroundColor = Color.Black;
-            }
+            
         }
 
         /// <summary>
@@ -174,6 +241,13 @@ namespace GymnasieArbete_2018_09_04
             
             player.Draw(spriteBatch);
             player2.Draw(spriteBatch);
+
+            foreach(Shot shot in shots.ToArray())
+            {
+
+                shot.Draw(spriteBatch);
+
+            }
 
             spriteBatch.DrawString(font, Convert.ToString("Player1"), player.position, Color.White);
             spriteBatch.DrawString(font, Convert.ToString("Player2"), player2.position, Color.White);

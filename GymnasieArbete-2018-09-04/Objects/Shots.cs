@@ -8,34 +8,48 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GymnasieArbete_2018_09_04
 {
-    class Shots : ObjectBase
+    class Shot : ObjectBase
     {
         Vector2 velocity;
+        public float angle;
 
-        public override void Initialize(Texture2D texture, Vector2 position)
+        public Shot(Vector2 position, Texture2D texture, float rotation)
         {
+            //intierar alla värden och dessutom tar in players rotation för att rätt hastighet
             this.position = position;
             this.texture = texture;
-            
-            center = new Vector2(this.texture.Width / 2, this.texture.Height / 2);
-
-            base.Initialize(texture, position);
+            acceleration = 1;
+            radius = 8;
+            thickness = 10;
+            sides = 10;
+            mass = 1;
+            color = Color.Red;
+            velocity.X += (float)Math.Cos(rotation) * (float)acceleration;
+            velocity.Y += (float)Math.Sin(rotation) * (float)acceleration;
+            this.rotation = rotation;
+            center = new Vector2(this.texture.Width / 2 + 50, this.texture.Height / 2 + 10);
         }
 
         public override void Update(GameTime gameTime, Vector2 gravity)
         {
-            rotation = (float)Math.Atan2(velocity.X, -velocity.Y);
-
+            angle = (float)Math.Atan2(velocity.Y, velocity.X);
+            Console.WriteLine(angle);
+            rotation = angle;
             position += velocity;
 
             velocity.X += gravity.X;
             velocity.Y += gravity.Y;
+
             base.Update(gameTime, gravity);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, position, null, Color.White, rotation, center, 1f, SpriteEffects.None, 1f);
+            //för att rita ut hitboxen
+            //MonoGame.Extended.ShapeExtensions.DrawCircle(spriteBatch, position, radius, sides, color, thickness);
+            spriteBatch.Draw(texture, position, null, Color.White, rotation, center, 0.1f, SpriteEffects.None, 1f);
+
+            
             base.Draw(spriteBatch);
         }
     }

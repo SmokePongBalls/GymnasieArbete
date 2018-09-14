@@ -13,9 +13,10 @@ namespace GymnasieArbete_2018_09_04
     {
         public Vector2 velocity;
         public Keys up, down, left, right, shot;
-        KeyboardState pressedKeys;
-        List<Shots> shots = new List<Shots>();
-        double countdown = 0;
+        public KeyboardState pressedKeys;
+        public bool shooting;
+
+
 
         public override void Initialize(Texture2D texture, Vector2 position)
         {
@@ -26,8 +27,8 @@ namespace GymnasieArbete_2018_09_04
             rotation = 0;
             thickness = 20;
             sides = 20;
-            mass = 5;
-            color = Color.Red;
+            mass = 10;
+            color = Color.White;
             acceleration = 0.1;
             base.Initialize(texture, position);
         }
@@ -38,9 +39,9 @@ namespace GymnasieArbete_2018_09_04
         {
 
             //För att enkelt se den cirkulära "hitboxen"
-            //MonoGame.Extended.ShapeExtensions.DrawCircle(spriteBatch, position, radius, sides, color, thickness);
+            MonoGame.Extended.ShapeExtensions.DrawCircle(spriteBatch, position, radius, sides, color, thickness);
 
-            spriteBatch.Draw(texture, position, null, Color.White, rotation, center, 1f, SpriteEffects.None, 1f);
+            spriteBatch.Draw(texture, position, null, color, rotation, center, 1f, SpriteEffects.None, 1f);
 
             base.Draw(spriteBatch);
         }
@@ -52,15 +53,15 @@ namespace GymnasieArbete_2018_09_04
             KeyActions(gameTime);
             Boundaries();
 
-            
+
             position += velocity;
 
             velocity.X += gravity.X;
             velocity.Y += gravity.Y;
         }
 
-        
-        
+
+
 
         private void Boundaries()
         {
@@ -93,39 +94,29 @@ namespace GymnasieArbete_2018_09_04
             {
 
                 velocity.X += (float)Math.Cos(rotation) * (float)acceleration;
-                
+
                 velocity.Y += (float)Math.Sin(rotation) * (float)acceleration;
             }
 
             if (pressedKeys.IsKeyDown(left))
             {
                 rotation -= (float)0.1;
-               
+
             }
             //har kvar denna ifall jag vill använda den
             if (pressedKeys.IsKeyDown(down))
-            {                
+            {
             }
 
             if (pressedKeys.IsKeyDown(right))
             {
                 rotation += (float)0.1;
-                
-
-            }
-
-            if(pressedKeys.IsKeyDown(shot))
-            {
-                countdown -= gameTime.ElapsedGameTime.TotalMilliseconds;
-
-                if (countdown <= 0)
-                {
-                    
-                    countdown = 2000;
-                }
 
 
             }
+
+
+
         }
 
     }

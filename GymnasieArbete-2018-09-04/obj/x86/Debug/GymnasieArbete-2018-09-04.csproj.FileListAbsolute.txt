@@ -92,3 +92,4 @@ C:\Users\hugo.fjaestad\Documents\GitHub\GymnasieArbete\GymnasieArbete-2018-09-04
 C:\Users\hugo.fjaestad\Documents\GitHub\GymnasieArbete\GymnasieArbete-2018-09-04\obj\x86\Debug\GymnasieArbete-2018-09-04.csprojAssemblyReference.cache
 C:\Users\hugo.fjaestad\Documents\GitHub\GymnasieArbete\GymnasieArbete-2018-09-04\obj\x86\Debug\GymnasieArbete-2018-09-04.csproj.CopyComplete
 C:\Users\hugo.fjaestad\Documents\GitHub\GymnasieArbete\GymnasieArbete-2018-09-04\bin\Windows\x86\Debug\Content\Font.xnb
+C:\Users\hugo.fjaestad\Documents\GitHub\GymnasieArbete\GymnasieArbete-2018-09-04\bin\Windows\x86\Debug\Content\bullet.xnb
