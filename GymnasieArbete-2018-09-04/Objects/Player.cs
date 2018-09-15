@@ -50,21 +50,25 @@ namespace GymnasieArbete_2018_09_04
         public override void Update(GameTime gameTime, Vector2 gravity)
         {
             pressedKeys = Keyboard.GetState();
+
             KeyActions(gameTime);
+
             Boundaries();
 
+            Movement(gravity);
+        }
 
+        private void Movement(Vector2 gravity)
+        {
             position += velocity;
 
             velocity.X += gravity.X;
             velocity.Y += gravity.Y;
         }
 
-
-
-
         private void Boundaries()
         {
+            //om spelaren kommer ut ur skärmen så kommer spelaren tillbaka på motsatt sida 
             if (position.X < -50)
             {
                 position.X = 1970;
@@ -101,7 +105,10 @@ namespace GymnasieArbete_2018_09_04
             if (pressedKeys.IsKeyDown(left))
             {
                 rotation -= (float)0.1;
-
+                if (rotation > MathHelper.Pi)
+                {
+                    rotation -= MathHelper.TwoPi;
+                }
             }
             //har kvar denna ifall jag vill använda den
             if (pressedKeys.IsKeyDown(down))
@@ -112,7 +119,10 @@ namespace GymnasieArbete_2018_09_04
             {
                 rotation += (float)0.1;
 
-
+                if (rotation < -MathHelper.Pi)
+                {
+                    rotation += MathHelper.TwoPi;
+                }
             }
 
 

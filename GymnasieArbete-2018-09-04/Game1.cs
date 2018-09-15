@@ -91,7 +91,7 @@ namespace GymnasieArbete_2018_09_04
             //skapar en instans av "player" i "game1" och dessutom så får "player" sina tangenter. 
             //Så ifall jag vill ha två stycken spelare kan jag göra en ny "player" och ge den andra tangenter.
             player2 = new Player();
-            player2.Initialize(Content.Load<Texture2D>("testSpaceship"), new Vector2(1820, 100));
+            player2.Initialize(playerTexture, new Vector2(1820, 100));
             player2.up = Keys.Up;
             player2.down = Keys.Down;
             player2.left = Keys.Left;
@@ -152,8 +152,8 @@ namespace GymnasieArbete_2018_09_04
 
                 if (countdown <= 0)
                 {
-                    shots.Add(new Shot(player.position, shotsTexture, player.rotation));
-                    bulletHitbox.Add(new circle.Circle());
+                    shots.Add(new Shot(player.position, shotsTexture, player.rotation, player.velocity));
+                    //bulletHitbox.Add(new circle.Circle());
                     countdown = 500;
                 }
 
@@ -167,8 +167,8 @@ namespace GymnasieArbete_2018_09_04
                 if (countdown2 <= 0)
                 {
                     //lägger till fler "skott" i shots listan så att jag kan skapa pararella shots och påverka deras värden enskilt.
-                    shots.Add(new Shot(player2.position, shotsTexture, player2.rotation));
-                    bulletHitbox.Add(new circle.Circle());
+                    shots.Add(new Shot(player2.position, shotsTexture, player2.rotation, player2.velocity));
+                   // bulletHitbox.Add(new circle.Circle());
                     countdown2 = 500;
                 }
 
@@ -181,6 +181,27 @@ namespace GymnasieArbete_2018_09_04
                 //uppdaterar varje shot enskilt.
                 shot.Update(gameTime, calculator.Gravity(shot.position, planet.center, shot.mass, planet.mass, 0.02f));
 
+                if(shot.ShotHitbox(playerHitbox))
+                {
+
+                    player.color = Color.Red;
+
+                }
+
+                if (shot.ShotHitbox(player2Hitbox))
+                {
+
+                    player2.color = Color.Red;
+
+                }
+
+                if (shot.ShotHitbox(planetHitbox))
+                {
+
+                    planet.color = Color.Red;
+
+                }
+                /*
                 //skapar en hitbox för varje shot.
                 foreach (circle.Circle bullethitbox in bulletHitbox.ToArray())
                 {
@@ -200,7 +221,7 @@ namespace GymnasieArbete_2018_09_04
 
                     }
                 }
-
+                */
 
             }
 
