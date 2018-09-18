@@ -185,6 +185,10 @@ namespace GymnasieArbete_2018_09_04
                 {
 
                     player.color = Color.Red;
+                    shots.Remove(shot);
+                    player.texture = Content.Load<Texture2D>("bullet");
+                    
+                    shotsTexture = Content.Load<Texture2D>("testSpaceship");
 
                 }
 
@@ -192,36 +196,19 @@ namespace GymnasieArbete_2018_09_04
                 {
 
                     player2.color = Color.Red;
+                    shots.Remove(shot);
+                    player2.texture = Content.Load<Texture2D>("bullet");
 
+                    shotsTexture = Content.Load<Texture2D>("testSpaceship");
                 }
 
                 if (shot.ShotHitbox(planetHitbox))
                 {
 
                     planet.color = Color.Red;
-
+                    shots.Remove(shot);
                 }
-                /*
-                //skapar en hitbox för varje shot.
-                foreach (circle.Circle bullethitbox in bulletHitbox.ToArray())
-                {
-                    bullethitbox.HoleInfo(shot.center.X, shot.center.Y, shot.radius * 2);
-
-                    if(bullethitbox.Intersects(playerHitbox))
-                    {
-
-                        player.color = Color.Red;
-
-                    }
-
-                    if(bullethitbox.Intersects(player2Hitbox))
-                    {
-
-                        player2.color = Color.Red;
-
-                    }
-                }
-                */
+               
 
             }
 

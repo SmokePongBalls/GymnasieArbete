@@ -14,7 +14,7 @@ namespace GymnasieArbete_2018_09_04
         public Vector2 velocity;
         public Keys up, down, left, right, shot;
         public KeyboardState pressedKeys;
-        public bool shooting;
+        
 
 
 
@@ -39,7 +39,7 @@ namespace GymnasieArbete_2018_09_04
         {
 
             //För att enkelt se den cirkulära "hitboxen"
-            MonoGame.Extended.ShapeExtensions.DrawCircle(spriteBatch, position, radius, sides, color, thickness);
+            //aadMonoGame.Extended.ShapeExtensions.DrawCircle(spriteBatch, position, radius, sides, color, thickness);
 
             spriteBatch.Draw(texture, position, null, color, rotation, center, 1f, SpriteEffects.None, 1f);
 
