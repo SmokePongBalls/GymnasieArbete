@@ -186,9 +186,6 @@ namespace GymnasieArbete_2018_09_04
 
                     player.color = Color.Red;
                     shots.Remove(shot);
-                    player.texture = Content.Load<Texture2D>("bullet");
-                    
-                    shotsTexture = Content.Load<Texture2D>("testSpaceship");
 
                 }
 
@@ -197,9 +194,9 @@ namespace GymnasieArbete_2018_09_04
 
                     player2.color = Color.Red;
                     shots.Remove(shot);
-                    player2.texture = Content.Load<Texture2D>("bullet");
+                    
 
-                    shotsTexture = Content.Load<Texture2D>("testSpaceship");
+                   
                 }
 
                 if (shot.ShotHitbox(planetHitbox))
