@@ -14,22 +14,28 @@ namespace GymnasieArbete_2018_09_04
         public Vector2 velocity;
         public Keys up, down, left, right, shot;
         public KeyboardState pressedKeys;
-        
 
-
+        public Game1 Game1
+        {
+            get => default(Game1);
+            set
+            {
+            }
+        }
 
         public override void Initialize(Texture2D texture, Vector2 position)
         {
             this.position = position;
             this.texture = texture;
             center = new Vector2(this.texture.Width / 2, this.texture.Height / 2);
-            radius = 45;
+            radius = 30;
             rotation = 0;
             thickness = 20;
             sides = 20;
-            mass = 10;
+            mass = 9000;
             color = Color.White;
-            acceleration = 0.1;
+            acceleration = 0.02;//0.03
+
             base.Initialize(texture, position);
         }
 
@@ -39,9 +45,9 @@ namespace GymnasieArbete_2018_09_04
         {
 
             //För att enkelt se den cirkulära "hitboxen"
-            //aadMonoGame.Extended.ShapeExtensions.DrawCircle(spriteBatch, position, radius, sides, color, thickness);
+            //MonoGame.Extended.ShapeExtensions.DrawCircle(spriteBatch, position, radius, sides, color, thickness);
 
-            spriteBatch.Draw(texture, position, null, color, rotation, center, 1f, SpriteEffects.None, 1f);
+            spriteBatch.Draw(texture, position, null, color, rotation, center, 0.3f, SpriteEffects.None, 1f);
 
             base.Draw(spriteBatch);
         }
@@ -51,9 +57,7 @@ namespace GymnasieArbete_2018_09_04
         {
             pressedKeys = Keyboard.GetState();
 
-            KeyActions(gameTime);
-
-            Boundaries();
+            KeyActions(gameTime); 
 
             Movement(gravity);
         }
@@ -61,33 +65,9 @@ namespace GymnasieArbete_2018_09_04
         private void Movement(Vector2 gravity)
         {
             position += velocity;
-
+            
             velocity.X += gravity.X;
             velocity.Y += gravity.Y;
-        }
-
-        private void Boundaries()
-        {
-            //om spelaren kommer ut ur skärmen så kommer spelaren tillbaka på motsatt sida 
-            if (position.X < -50)
-            {
-                position.X = 1970;
-            }
-
-            if (position.X > 1970)
-            {
-                position.X = -50;
-            }
-
-            if (position.Y < -50)
-            {
-                position.Y = 1130;
-            }
-
-            if (position.Y > 1130)
-            {
-                position.Y = -50;
-            }
         }
 
         private void KeyActions(GameTime gameTime)
@@ -110,6 +90,7 @@ namespace GymnasieArbete_2018_09_04
                     rotation -= MathHelper.TwoPi;
                 }
             }
+
             //har kvar denna ifall jag vill använda den
             if (pressedKeys.IsKeyDown(down))
             {

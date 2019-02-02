@@ -9,6 +9,14 @@ namespace GymnasieArbete_2018_09_04
 {
     class circle
     {
+        public Game1 Game1
+        {
+            get => default(Game1);
+            set
+            {
+            }
+        }
+
         public struct Circle
         {
             public float Diameter { get; set; }

@@ -10,13 +10,13 @@ namespace GymnasieArbete_2018_09_04
 {
     class Shot : ObjectBase
     {
-        circle.Circle hitbox = new circle.Circle();
+        circle.Circle hitbox;
         Vector2 velocity;
-        public float angle;
+       
         
         bool activated;
 
-        public Shot(Vector2 position, Texture2D texture, float rotation, Vector2 velocity)
+        public Shot(Vector2 position, Texture2D texture, float rotation, Vector2 playerVelocity)
         {
             //intierar alla värden och dessutom tar in players rotation för att rätt hastighet
             this.position = position;
@@ -25,25 +25,34 @@ namespace GymnasieArbete_2018_09_04
             radius = 8;
             thickness = 10;
             sides = 10;
-            mass = 1;
+            mass = 100000;
             color = Color.Red;
             activated = false;
-            
+            hitbox = new circle.Circle();
+
             this.rotation = rotation;
             this.velocity.X = (float)Math.Cos(rotation) * (float)acceleration;
             this.velocity.Y = (float)Math.Sin(rotation) * (float)acceleration;
 
             this.position += this.velocity *5f;
-            this.velocity += velocity;
+            this.velocity += playerVelocity;
             
             center = new Vector2(this.texture.Width / 2 + 50, this.texture.Height / 2 + 10);
         }
 
+        public Game1 Game1
+        {
+            get => default(Game1);
+            set
+            {
+            }
+        }
+
         public override void Update(GameTime gameTime, Vector2 gravity)
         {
-            angle = (float)Math.Atan2(velocity.Y, velocity.X);
+            rotation = (float)Math.Atan2(velocity.Y, velocity.X);
            
-            rotation = angle;
+            base.rotation = rotation;
 
             position += velocity;
 
@@ -77,7 +86,7 @@ namespace GymnasieArbete_2018_09_04
         {
             //för att rita ut hitboxen
             //MonoGame.Extended.ShapeExtensions.DrawCircle(spriteBatch, position, radius, sides, color, thickness);
-            spriteBatch.Draw(texture, position, null, Color.White, rotation, center, 0.1f, SpriteEffects.None, 1f);
+            spriteBatch.Draw(texture, position, null, Color.White, base.rotation, center, 0.1f, SpriteEffects.None, 1f);
 
             
             base.Draw(spriteBatch);

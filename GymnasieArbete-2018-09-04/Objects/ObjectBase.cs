@@ -13,7 +13,8 @@ namespace GymnasieArbete_2018_09_04
         public Vector2 position, center;
         public Texture2D texture;
         public float radius, thickness, rotation;
-        public int sides, mass;
+        public int sides;
+        public long mass;
         public double acceleration;
         public Color color;
 
